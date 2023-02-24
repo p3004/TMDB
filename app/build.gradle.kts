@@ -1,8 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -22,9 +26,17 @@ android {
     }
 
     buildTypes {
+        val key: String = gradleLocalProperties(rootDir).getProperty("api_key")
         named("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
+            buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3\"")
+            buildConfigField("String","API_KEY", key)
+        }
+        named("debug"){
+            isMinifyEnabled=false
+            buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3\"")
+            buildConfigField("String","API_KEY", key)
         }
     }
     compileOptions {
@@ -55,10 +67,26 @@ dependencies {
     implementation ("androidx.compose.ui:ui:1.3.3")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.3.3")
     implementation ("androidx.compose.material:material:1.3.1")
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Dagger-hilt
+    implementation("com.google.dagger:hilt-android:2.44.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.44.2")
+
+    //Mockito
+    testImplementation("org.mockito:mockito-core:3.5.10")
+
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.3.3")
     debugImplementation ("androidx.compose.ui:ui-tooling:1.3.3")
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.3.3")
+}
+
+kapt {
+    correctErrorTypes = true
 }
