@@ -2,6 +2,7 @@ package com.org.tmdb.data.repository
 
 import com.org.tmdb.data.remote.ApiCalls
 import com.org.tmdb.data.remote.Trending
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TrendingRepositoryImpl @Inject constructor(
@@ -11,7 +12,7 @@ class TrendingRepositoryImpl @Inject constructor(
     override suspend fun fetchTrendingData(
         mediaType: String,
         timeWindow: String
-    ): Trending {
+    ): Flow<Trending> {
         return apiCalls.getTrendingData(
             mediaType = mediaType,
             timeWindow = timeWindow
