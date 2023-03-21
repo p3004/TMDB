@@ -5,7 +5,7 @@ The Movie database app (wip)
 
 ## Commit message Headers
 
->This project has the below headers with the commit messages and here are what the mean
+>This project has the below headers with the commit messages and here are what they mean
 
 ***feat*** – a new feature is introduced with the changes.  
 ***bug-fix*** – a bug fix has occurred.  
