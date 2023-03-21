@@ -27,7 +27,6 @@ class MainViewModel @Inject constructor(
      * */
     fun fetchTrendingData(mediaType: String, timeWindow: String) {
         viewModelScope.launch {
-            _trendingStateFlow.value = MainActivityUiState.Loading
            trendingRepository.fetchTrendingData(
                 mediaType, timeWindow
             ).catch {
