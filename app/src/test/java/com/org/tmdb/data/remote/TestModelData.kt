@@ -6,3 +6,5 @@ val trendingTestData = Trending(
     total_pages = 1,
     total_results = 1
 )
+
+const val errorMessage = "Something Went Wrong"
