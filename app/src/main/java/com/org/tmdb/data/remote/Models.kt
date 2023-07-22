@@ -8,6 +8,7 @@ data class Trending(
     val total_results: Int
 )
 
+
 data class ResultTrending(
     val adult: Boolean,
     val backdrop_path: String,

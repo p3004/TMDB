@@ -31,11 +31,13 @@ android {
             isMinifyEnabled = true
             setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
             buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String","IMG_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
             buildConfigField("String","API_KEY", key)
         }
         named("debug"){
             isMinifyEnabled=false
             buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String","IMG_BASE_URL", "\"https://image.tmdb.org/t/p/original\"")
             buildConfigField("String","API_KEY", key)
         }
     }
@@ -78,9 +80,13 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.44.2")
     kapt("com.google.dagger:hilt-android-compiler:2.44.2")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     //Mockito
     testImplementation("org.mockito:mockito-core:3.5.10")
+
+
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
     //Kotlin test dependencies
     testImplementation(kotlin("test"))
@@ -92,6 +98,7 @@ dependencies {
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.4.3")
     debugImplementation ("androidx.compose.ui:ui-tooling:1.4.3")
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.4.3")
+
 }
 
 kapt {

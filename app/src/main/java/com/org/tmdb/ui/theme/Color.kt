@@ -18,3 +18,6 @@ val secondaryLightMode  = Color(0xFF90cea1)
 val primaryDarkMode = Color(0xFF0A2647)
 val primaryVariantDarkMode = Color(0xFF144272)
 val secondaryDarkMode = Color(0xFF2C74B3)
+
+
+val white = Color(0xFFFFFFFF)
