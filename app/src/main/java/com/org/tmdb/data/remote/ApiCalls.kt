@@ -20,11 +20,11 @@ enum class TimeWindow(name: String){
 
 interface ApiCalls {
 
-    @GET("/$TRENDING_ENDPOINT/{media_type}/{time_window}")
+    @GET("$TRENDING_ENDPOINT/{media_type}/{time_window}")
     suspend fun getTrendingData(
         @Path("media_type") mediaType: String,
         @Path("time_window") timeWindow: String,
         @Query("api_key") apiKey : String = BuildConfig.API_KEY
-    ): Flow<Trending>
+    ): Trending
 
 }

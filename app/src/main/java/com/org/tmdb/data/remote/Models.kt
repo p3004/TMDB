@@ -3,12 +3,13 @@ package com.org.tmdb.data.remote
 
 data class Trending(
     val page: Int,
-    val results: List<Result>,
+    val results: List<ResultTrending>,
     val total_pages: Int,
     val total_results: Int
 )
 
-data class Result(
+
+data class ResultTrending(
     val adult: Boolean,
     val backdrop_path: String,
     val first_air_date: String,
