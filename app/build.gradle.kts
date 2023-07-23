@@ -11,11 +11,11 @@ plugins {
 
 android {
     namespace = "com.org.tmdb"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.org.tmdb"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -29,16 +29,21 @@ android {
         val key: String = gradleLocalProperties(rootDir).getProperty("api_key")
         named("release") {
             isMinifyEnabled = true
-            setProguardFiles(listOf(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"))
-            buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String","IMG_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
-            buildConfigField("String","API_KEY", key)
+            setProguardFiles(
+                listOf(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            )
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "IMG_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
+            buildConfigField("String", "API_KEY", key)
         }
-        named("debug"){
-            isMinifyEnabled=false
-            buildConfigField("String","BASE_URL", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String","IMG_BASE_URL", "\"https://image.tmdb.org/t/p/original\"")
-            buildConfigField("String","API_KEY", key)
+        named("debug") {
+            isMinifyEnabled = false
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "IMG_BASE_URL", "\"https://image.tmdb.org/t/p/original\"")
+            buildConfigField("String", "API_KEY", key)
         }
     }
     compileOptions {
@@ -63,17 +68,17 @@ android {
 
 dependencies {
 
-    implementation  ("androidx.core:core-ktx:1.10.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation ("androidx.activity:activity-compose:1.7.2")
-    implementation ("androidx.compose.ui:ui:1.4.3")
-    implementation ("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation ("androidx.compose.material:material:1.4.3")
-    implementation ("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.compose.ui:ui:1.4.3")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    implementation("androidx.compose.material:material:1.4.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //Dagger-hilt
     implementation("com.google.dagger:hilt-android:2.44.2")
@@ -92,12 +97,12 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.4.3")
-    debugImplementation ("androidx.compose.ui:ui-tooling:1.4.3")
-    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.4.3")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.4.3")
 
 }
 
