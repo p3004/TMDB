@@ -20,6 +20,7 @@ import com.org.tmdb.ui.screens.TMDBApp
 import com.org.tmdb.ui.theme.TMDBTheme
 import com.org.tmdb.ui.theme.primaryVariantDarkMode
 import com.org.tmdb.ui.screens.trending.TrendingScreen
+import com.org.tmdb.ui.theme.primaryDarkMode
 import com.org.tmdb.util.NetworkObserver
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -38,6 +39,9 @@ class MainActivity : ComponentActivity() {
             val userDarkIcons = !isSystemInDarkTheme()
             DisposableEffect(systemUiController, userDarkIcons) {
                 systemUiController.systemBarsDarkContentEnabled = !userDarkIcons
+                systemUiController.setStatusBarColor(
+                    color = primaryDarkMode
+                )
                 onDispose {}
             }
             TMDBTheme {
