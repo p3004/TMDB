@@ -1,10 +1,13 @@
 package com.org.tmdb.ui.screens.trending
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -43,21 +46,30 @@ import com.org.tmdb.ui.viewmodels.MainViewModel
 fun TrendingScreen(
     mediaType: MediaType,
     timeWindow: TimeWindow,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    onTrendingItemClick: (ResultTrending) -> Unit
 ) {
     viewModel.fetchTrendingData(mediaType.name.lowercase(), timeWindow.name.lowercase())
-    TrendingList(mainActivityUiState = viewModel.trendingStateFlow.collectAsStateWithLifecycle())
+    TrendingList(
+        mainActivityUiState = viewModel.trendingStateFlow.collectAsStateWithLifecycle(),
+        onTrendingItemClick
+    )
 
 }
 
 
 @Composable
 fun TrendingList(
-    mainActivityUiState: State<MainActivityUiState>
+    mainActivityUiState: State<MainActivityUiState>,
+    onTrendingItemClick: (ResultTrending) -> Unit
 ) {
     when (mainActivityUiState.value) {
         is MainActivityUiState.Loading -> UILoading()
-        is MainActivityUiState.Success -> ShowList((mainActivityUiState.value as MainActivityUiState.Success).trendingStateFlow.results)
+        is MainActivityUiState.Success -> ShowList(
+            (mainActivityUiState.value as MainActivityUiState.Success).trendingStateFlow.results,
+            onTrendingItemClick
+        )
+
         is MainActivityUiState.Error -> ShowError()
     }
 }
@@ -66,6 +78,7 @@ fun TrendingList(
 @Composable
 fun UILoading() {
     Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -82,17 +95,23 @@ fun UILoading() {
 
 
 @Composable
-fun ShowList(trendingList: List<ResultTrending>) {
+fun ShowList(
+    trendingList: List<ResultTrending>,
+    onTrendingItemClick: (ResultTrending) -> Unit
+) {
     LazyColumn {
         items(trendingList) {
-            TrendingItem(trending = it)
+            TrendingItem(trending = it, onTrendingItemClick)
         }
     }
 }
 
 
 @Composable
-fun TrendingItem(trending: ResultTrending) {
+fun TrendingItem(
+    trending: ResultTrending,
+    onTrendingItemClick: (ResultTrending) -> Unit
+) {
     Column(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp)) {
         Box(
             modifier = Modifier
@@ -100,13 +119,16 @@ fun TrendingItem(trending: ResultTrending) {
                 .heightIn(min = 100.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(color = primaryDarkMode)
+                .clickable { onTrendingItemClick(trending) }
+
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 100.dp)
                     .padding(10.dp)
-                ) {
+
+            ) {
                 CommonSpacer(int = 10)
                 AsyncImage(
                     model = "${BuildConfig.IMG_BASE_URL}${trending.backdrop_path}",
@@ -120,13 +142,6 @@ fun TrendingItem(trending: ResultTrending) {
         CommonSpacer(int = 40)
     }
 
-}
-
-
-@Preview
-@Composable
-fun TrendingItemPreview(@PreviewParameter(TrendingParameterProvider::class) resultTrending: ResultTrending) {
-    TrendingItem(trending = resultTrending)
 }
 
 @Composable
