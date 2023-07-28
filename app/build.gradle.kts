@@ -75,6 +75,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+
+    //SystemUIController
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta")
+
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")

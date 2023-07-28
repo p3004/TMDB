@@ -34,6 +34,7 @@ import com.org.tmdb.data.remote.MediaType
 import com.org.tmdb.data.remote.ResultTrending
 import com.org.tmdb.data.remote.TimeWindow
 import com.org.tmdb.ui.common.CommonSpacer
+import com.org.tmdb.ui.common.TMDBProgressLoader
 import com.org.tmdb.ui.preview.TrendingParameterProvider
 import com.org.tmdb.ui.theme.primaryDarkMode
 import com.org.tmdb.ui.theme.primaryLightMode
@@ -82,13 +83,7 @@ fun UILoading() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        CircularProgressIndicator(
-            modifier = Modifier
-                .progressSemantics()
-                .size(32.dp),
-            color = if (isSystemInDarkTheme()) primaryDarkMode else primaryLightMode,
-            strokeWidth = 8.dp
-        )
+        TMDBProgressLoader()
     }
 
 }
