@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.org.tmdb.ui.theme.primaryDarkMode
+import com.org.tmdb.ui.theme.rainbowColorsForLoader
 import com.org.tmdb.ui.theme.secondaryDarkMode
 
 @Composable
@@ -49,13 +50,7 @@ fun TMDBProgressLoader(){
         targetValue = 360f,
         animationSpec = infiniteRepeatable(tween(1000, easing = LinearEasing)), label = ""
     )
-    val colorList = listOf(Color(0xFFFF685D),
-        Color(0xFFFF64F0),
-        Color(0xFF5155FF),
-        Color(0xFF54EDFF),
-        Color(0xFF5BFF7B),
-        Color(0xFFFDFF59),
-        Color(0xFFFFCA55))
+    val colorList = rainbowColorsForLoader
     Canvas(modifier = Modifier
         .size(size = 70.dp)
         .padding(10.dp)
