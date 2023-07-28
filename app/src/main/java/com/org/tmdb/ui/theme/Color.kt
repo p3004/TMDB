@@ -21,3 +21,12 @@ val secondaryDarkMode = Color(0xFF2C74B3)
 
 
 val white = Color(0xFFFFFFFF)
+
+
+val rainbowColorsForLoader = listOf(Color(0xFFFF685D),
+    Color(0xFFFF64F0),
+    Color(0xFF5155FF),
+    Color(0xFF54EDFF),
+    Color(0xFF5BFF7B),
+    Color(0xFFFDFF59),
+    Color(0xFFFFCA55))
