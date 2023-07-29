@@ -1,4 +1,4 @@
-package com.org.tmdb.ui.viewmodels
+package com.org.tmdb.ui.screens.trending
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class TrendingViewModel @Inject constructor(
     private val trendingRepository: TrendingRepository
 ) : ViewModel() {
 
