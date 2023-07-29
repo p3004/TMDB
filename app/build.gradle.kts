@@ -79,6 +79,8 @@ dependencies {
     //SystemUIController
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta")
 
+    //Splash Screen api
+    implementation("androidx.core:core-splashscreen:1.0.0")
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
