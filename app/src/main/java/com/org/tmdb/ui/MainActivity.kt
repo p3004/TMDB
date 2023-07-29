@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.org.tmdb.data.remote.MediaType
 import com.org.tmdb.data.remote.TimeWindow
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContent {
             val systemUiController = rememberSystemUiController()
@@ -44,6 +46,7 @@ class MainActivity : ComponentActivity() {
                 )
                 onDispose {}
             }
+
             TMDBTheme {
                 // A surface container using the 'background' color from the theme
                 TMDBApp(appState = rememberTMDBAppState(networkObserver = networkObserver))
