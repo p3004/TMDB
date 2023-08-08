@@ -4,8 +4,8 @@ import com.org.tmdb.data.remote.errorMessage
 import com.org.tmdb.data.remote.trendingTestData
 import com.org.tmdb.data.repository.TrendingRepository
 import com.org.tmdb.data.util.TestDispatcherRule
-import com.org.tmdb.ui.viewmodels.MainActivityUiState
-import com.org.tmdb.ui.viewmodels.MainViewModel
+import com.org.tmdb.ui.screens.trending.MainActivityUiState
+import com.org.tmdb.ui.screens.trending.TrendingViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.runBlocking
@@ -20,7 +20,7 @@ import kotlin.test.assertEquals
 
 
 @RunWith(MockitoJUnitRunner::class)
-class MainViewModelTest {
+class TrendingViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @get:Rule
@@ -30,18 +30,18 @@ class MainViewModelTest {
     @Mock
     private lateinit var trendingRepository: TrendingRepository
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var trendingViewModel: TrendingViewModel
 
 
     @Before
     fun setUp(){
-        mainViewModel = MainViewModel(trendingRepository)
+        trendingViewModel = TrendingViewModel(trendingRepository)
     }
 
 
     @Test
     fun stateIsInitialLoading(){
-        assertEquals(MainActivityUiState.Loading, mainViewModel.trendingStateFlow.value)
+        assertEquals(MainActivityUiState.Loading, trendingViewModel.trendingStateFlow.value)
     }
 
 
@@ -52,7 +52,7 @@ class MainViewModelTest {
                 .`when`(trendingRepository)
                 .fetchTrendingData("","")
 
-            mainViewModel.fetchTrendingData("", "")
+            trendingViewModel.fetchTrendingData("", "")
 
             verify(trendingRepository).fetchTrendingData("","")
         }
@@ -66,7 +66,7 @@ class MainViewModelTest {
              .`when`(trendingRepository)
              .fetchTrendingData("","")
 
-         mainViewModel.fetchTrendingData("","")
+         trendingViewModel.fetchTrendingData("","")
 
          verify(trendingRepository).fetchTrendingData("","").catch {
              assertEquals(it.message, errorMessage)
