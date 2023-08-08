@@ -1,5 +1,8 @@
 package com.org.tmdb.data.remote
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 
 data class Trending(
     val page: Int,
@@ -9,6 +12,7 @@ data class Trending(
 )
 
 
+@Parcelize
 data class ResultTrending(
     val adult: Boolean,
     val backdrop_path: String,
@@ -28,4 +32,4 @@ data class ResultTrending(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+): Parcelable

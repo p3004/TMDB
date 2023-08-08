@@ -2,6 +2,7 @@ package com.org.tmdb.ui.screens.trending
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.org.tmdb.data.remote.ResultTrending
 import com.org.tmdb.data.remote.Trending
 import com.org.tmdb.data.repository.TrendingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

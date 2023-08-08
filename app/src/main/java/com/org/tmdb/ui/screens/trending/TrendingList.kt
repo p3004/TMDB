@@ -28,6 +28,7 @@ import com.org.tmdb.data.remote.ResultTrending
 import com.org.tmdb.data.remote.TimeWindow
 import com.org.tmdb.ui.common.CommonSpacer
 import com.org.tmdb.ui.common.TMDBProgressLoader
+import com.org.tmdb.ui.screens.TrendingSharedViewModel
 import com.org.tmdb.ui.theme.primaryDarkMode
 import com.org.tmdb.ui.theme.white
 
@@ -37,12 +38,14 @@ fun TrendingScreen(
     mediaType: MediaType,
     timeWindow: TimeWindow,
     viewModel: TrendingViewModel = hiltViewModel(),
-    onTrendingItemClick: (ResultTrending) -> Unit
+    trendingSharedViewModel: TrendingSharedViewModel,
+    onTrendingItemClick: () -> Unit
 ) {
     viewModel.fetchTrendingData(mediaType.name.lowercase(), timeWindow.name.lowercase())
     TrendingList(
         mainActivityUiState = viewModel.trendingStateFlow.collectAsStateWithLifecycle(),
-        onTrendingItemClick
+        onTrendingItemClick,
+        trendingSharedViewModel
     )
 
 }
@@ -51,13 +54,15 @@ fun TrendingScreen(
 @Composable
 fun TrendingList(
     mainActivityUiState: State<MainActivityUiState>,
-    onTrendingItemClick: (ResultTrending) -> Unit
+    onTrendingItemClick: () -> Unit,
+    trendingSharedViewModel: TrendingSharedViewModel
 ) {
     when (mainActivityUiState.value) {
         is MainActivityUiState.Loading -> UILoading()
         is MainActivityUiState.Success -> ShowList(
             (mainActivityUiState.value as MainActivityUiState.Success).trendingStateFlow.results,
-            onTrendingItemClick
+            onTrendingItemClick,
+            trendingSharedViewModel
         )
 
         is MainActivityUiState.Error -> ShowError()
@@ -81,11 +86,12 @@ fun UILoading() {
 @Composable
 fun ShowList(
     trendingList: List<ResultTrending>,
-    onTrendingItemClick: (ResultTrending) -> Unit
+    onTrendingItemClick: () -> Unit,
+    trendingSharedViewModel: TrendingSharedViewModel
 ) {
     LazyColumn {
         items(trendingList) {
-            TrendingItem(trending = it, onTrendingItemClick)
+            TrendingItem(trending = it, onTrendingItemClick, trendingSharedViewModel)
         }
     }
 }
@@ -94,7 +100,8 @@ fun ShowList(
 @Composable
 fun TrendingItem(
     trending: ResultTrending,
-    onTrendingItemClick: (ResultTrending) -> Unit
+    onTrendingItemClick: () -> Unit,
+    trendingSharedViewModel: TrendingSharedViewModel
 ) {
     Column(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp)) {
         Box(
@@ -103,7 +110,10 @@ fun TrendingItem(
                 .heightIn(min = 100.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(color = primaryDarkMode)
-                .clickable { onTrendingItemClick(trending) }
+                .clickable {
+                    trendingSharedViewModel.onTrendingClicked(trending)
+                    onTrendingItemClick()
+                }
 
         ) {
             Column(
