@@ -1,5 +1,6 @@
 package com.org.tmdb.ui.screens.trending
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -83,6 +84,7 @@ fun UILoading() {
 }
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ShowList(
     trendingList: List<ResultTrending>,
@@ -91,7 +93,7 @@ fun ShowList(
 ) {
     LazyColumn {
         items(trendingList) {
-            TrendingItem(trending = it, onTrendingItemClick, trendingSharedViewModel)
+            TrendingItem(trending = it, onTrendingItemClick, trendingSharedViewModel, modifier = Modifier.animateItemPlacement())
         }
     }
 }
@@ -101,9 +103,10 @@ fun ShowList(
 fun TrendingItem(
     trending: ResultTrending,
     onTrendingItemClick: () -> Unit,
-    trendingSharedViewModel: TrendingSharedViewModel
+    trendingSharedViewModel: TrendingSharedViewModel,
+    modifier: Modifier
 ) {
-    Column(modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp)) {
+    Column(modifier = modifier.padding(start = 10.dp, end = 10.dp, top = 10.dp)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
