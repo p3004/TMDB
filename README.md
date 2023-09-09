@@ -1,6 +1,24 @@
 # TMDB
 
-The Movie database app (wip)
+The Movie database app, with today's trending TV programmes.
+
+### To build and run this project use android studio Giraffe and put api_key in local.properties file in the android project in local machine, for example api_key=\\"ssadasdascascacsacsafas2w2edawsd\\".
+>Take api key from https://www.themoviedb.org/ after logging in.
+
+## Tech stack used
+```
+Kotlin 
+Jetpack Compose 
+Retrofit
+Nav Graph for switching screens in compose
+```
+
+## Screenshots from App
+
+![Screenshot_20230909_145941](https://github.com/p3004/TMDB/assets/50319302/a7437bfe-4c3b-4f2b-9378-0dc71f87bc9c)
+
+![Screenshot_20230909_150021](https://github.com/p3004/TMDB/assets/50319302/1baea1f9-efa7-4040-b9c6-b09c189446ba)
+
 
 
 ## Commit message Headers
